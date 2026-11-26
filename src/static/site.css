@@ -33,6 +33,11 @@ td:nth-child(n+3) { font-variant-numeric: tabular-nums; }
 .details section { padding-block: 1.25rem; border-bottom: 1px solid #3c4052; }
 .log { margin: 0; padding-left: 1.2rem; }
 footer { color: #c6c9db; padding-block: 1.2rem; font-size: .85rem; }
+.wide-table { overflow-x: auto; margin-top: .5rem; }
+.cheats-table { min-width: 42rem; }
+.cheats-table th:first-child, .cheats-table th:nth-child(2) { width: 15%; }
+.cheats-table th:nth-child(3) { width: 26%; }
+.sequence { line-height: 1.8; }
 
 @media (max-width: 30rem) {
   .shell { width: calc(100% - 1.25rem); }
