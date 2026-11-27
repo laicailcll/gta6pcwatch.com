@@ -4,9 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="page-lastmod" content="2026-11-27">
-  <meta name="description" content="Check whether Rockstar has announced the GTA 6 PC requirements, see the console-to-Windows release gaps for three Rockstar games, and read the update log.">
+  <meta name="description" content="Check the official GTA 6 PC requirements and compare your graphics card, processor, and memory with Rockstar’s minimum and recommended specifications when published.">
   <link rel="canonical" href="https://gta6pcwatch.com/gta-6-pc-requirements">
   <link rel="stylesheet" href="/site.css">
+  <script src="/requirements-checker.js" defer></script>
+  <style>
+    .spec-table th:first-child { width: 20%; }
+    .spec-table th:nth-child(2), .spec-table th:nth-child(3) { width: 25%; }
+    .pc-checker { margin-block: 1rem; padding: .85rem; background: #1e2232; border: 1px solid #42475b; border-radius: .5rem; }
+    .pc-inputs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .65rem; margin-block: .65rem; }
+    .pc-inputs label { display: grid; gap: .25rem; font-weight: 650; min-width: 0; }
+    .pc-inputs select { width: 100%; min-width: 0; min-height: 2.75rem; padding: .35rem; font: inherit; font-size: 1rem; color: inherit; background: #151825; border: 1px solid #646b83; border-radius: .25rem; }
+    .pc-result { display: block; border-inline-start: .2rem solid #aaf2de; padding-inline-start: .65rem; overflow-wrap: anywhere; }
+    .spec-faq dt { font-weight: 700; margin-top: .75rem; }
+    .spec-faq dd { margin: .2rem 0 0; }
+    @media (max-width: 36rem) { .pc-inputs { grid-template-columns: 1fr; } }
+  </style>
   <title>GTA 6 PC Requirements | GTA 6 PC Watch</title>
 </head>
 <body>
@@ -15,9 +28,75 @@
   <main class="shell" id="main">
     <section class="intro" aria-labelledby="title">
       <h1 id="title">GTA 6 PC Requirements</h1>
-      <p class="answer"><strong>Rockstar has not published minimum or recommended PC requirements for GTA 6.</strong> Rockstar has also given no PC release date. Its <a href="https://www.rockstargames.com/VI">official product page</a> lists PlayStation 5 and Xbox Series X|S. The <a href="https://support.rockstargames.com/articles/M6h7B5fJZMwG1dnzQkt4Z/grand-theft-auto-vi-installation-requirements">installation requirements in Rockstar Support</a> are for consoles. Our <a href="/gta-6-steam">GTA 6 Steam tracker</a> covers current store availability and dated release announcements.</p>
-      <p class="checked">Last checked <time datetime="2026-11-26">November 26, 2026</time></p>
-      <p class="checked">For launch timing and dated reports, see the <a href="/">GTA 6 PC release date tracker</a>.</p>
+      <p class="answer"><strong>Rockstar has not published minimum or recommended GTA 6 PC requirements.</strong> Choose your hardware below to fill in the comparison.</p>
+    </section>
+    <section class="evidence" aria-label="Official PC specifications compared with your PC">
+      <table class="spec-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Minimum</th><th scope="col">Recommended</th><th scope="col">Your PC</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">GPU</th><td>Not announced</td><td>Not announced</td><td id="your-gpu">Not selected</td></tr>
+          <tr><th scope="row">CPU</th><td>Not announced</td><td>Not announced</td><td id="your-cpu">Not selected</td></tr>
+          <tr><th scope="row">RAM</th><td>Not announced</td><td>Not announced</td><td id="your-ram">Not selected</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="pc-checker" aria-labelledby="checker-title">
+      <h2 id="checker-title">Can my PC run GTA 6?</h2>
+      <div class="pc-inputs">
+        <label for="gpu">Graphics card
+          <select id="gpu">
+            <option value="">Choose your GPU</option>
+            <optgroup label="NVIDIA desktop">
+              <option>GeForce GTX 1660 Super</option><option>GeForce RTX 2060</option><option>GeForce RTX 3060</option>
+              <option>GeForce RTX 3070</option><option>GeForce RTX 4060</option><option>GeForce RTX 4070</option>
+              <option>GeForce RTX 4080</option><option>GeForce RTX 5060</option><option>GeForce RTX 5070</option>
+            </optgroup>
+            <optgroup label="AMD desktop">
+              <option>Radeon RX 6600</option><option>Radeon RX 6700 XT</option><option>Radeon RX 7600</option>
+              <option>Radeon RX 7800 XT</option><option>Radeon RX 9070 XT</option>
+            </optgroup>
+            <option>Unknown / model not listed</option>
+          </select>
+        </label>
+        <label for="cpu">Processor
+          <select id="cpu">
+            <option value="">Choose your CPU</option>
+            <optgroup label="Intel desktop">
+              <option>Core i5-10400</option><option>Core i5-12400F</option><option>Core i5-13400F</option>
+              <option>Core i5-13600K</option><option>Core i7-12700K</option><option>Core i7-14700K</option>
+              <option>Core Ultra 5 245K</option>
+            </optgroup>
+            <optgroup label="AMD desktop">
+              <option>Ryzen 5 3600</option><option>Ryzen 5 5600</option><option>Ryzen 5 7600</option>
+              <option>Ryzen 5 9600X</option><option>Ryzen 7 5700X3D</option><option>Ryzen 7 7800X3D</option>
+              <option>Ryzen 7 9800X3D</option>
+            </optgroup>
+            <option>Unknown / model not listed</option>
+          </select>
+        </label>
+        <label for="ram">Memory
+          <select id="ram">
+            <option value="">Choose your RAM</option>
+            <option>4 GB</option><option>8 GB</option><option>12 GB</option><option>16 GB</option>
+            <option>24 GB</option><option>32 GB</option><option>48 GB</option><option>64 GB</option>
+            <option>96 GB</option><option>128 GB</option><option>Unknown / capacity not listed</option>
+          </select>
+        </label>
+      </div>
+      <output class="pc-result" for="gpu cpu ram" aria-live="polite" aria-atomic="true"><strong>Official PC requirements pending.</strong> A compatibility tier is unavailable until Rockstar publishes PC specifications. <span id="selected-hardware"></span></output>
+    </section>
+    <section class="details" aria-label="Official sources and common questions">
+      <p class="checked">Source check <time datetime="2026-11-27">November 27, 2026</time> · <a href="https://www.rockstargames.com/VI">Rockstar’s platform list</a> · <a href="https://store.steampowered.com/search/?term=Grand+Theft+Auto+VI">Steam catalog search</a></p>
+      <dl class="spec-faq">
+        <dt>Do the GTA 6 requirements cover Windows yet?</dt>
+        <dd>Rockstar lists PS5 and Xbox Series X|S. Its installation article covers console storage. Steam’s catalog shows no official GTA 6 product page with Windows requirements. <a href="https://support.rockstargames.com/articles/M6h7B5fJZMwG1dnzQkt4Z/grand-theft-auto-vi-installation-requirements">Rockstar installation support</a></dd>
+        <dt>What does “GTA 6 sys req” mean?</dt>
+        <dd>It’s shorthand for the game’s system requirements. A GTA 6 spec for Windows would identify hardware and software requirements for the PC edition.</dd>
+        <dt>Which GTA 6 specifications matter for this checker?</dt>
+        <dd>Use the exact graphics card and processor models and the amount of system RAM installed. Choose Unknown if your model or capacity is missing.</dd>
+        <dt>Are the GTA 6 minimum requirements and GTA 6 recommended specs available?</dt>
+        <dd>Neither set has been announced for PC. Check the <a href="/gta-6-steam">GTA 6 Steam tracker</a> for store availability and the <a href="/">GTA 6 PC release date tracker</a> for Windows release announcements.</dd>
+      </dl>
       <p class="checked">For the story’s cast, see the <a href="/gta-6-characters">GTA 6 characters guide</a>.</p>
       <p class="checked">For console button sequences reported by published guides, see <a href="/gta-6-cheat-codes">GTA 6 cheat codes</a>.</p>
     </section>
