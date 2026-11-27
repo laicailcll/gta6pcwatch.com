@@ -7,7 +7,7 @@
   <meta name="description" content="Check the official GTA 6 PC requirements and compare your graphics card, processor, and memory with Rockstar’s minimum and recommended specifications when published.">
   <link rel="canonical" href="https://gta6pcwatch.com/gta-6-pc-requirements">
   <link rel="stylesheet" href="/site.css">
-  <script src="/requirements-checker.js" defer></script>
+  <script src="/requirements-checker.js?v=2" defer></script>
   <style>
     .spec-table th:first-child { width: 20%; }
     .spec-table th:nth-child(2), .spec-table th:nth-child(3) { width: 25%; }
@@ -16,6 +16,9 @@
     .pc-inputs label { display: grid; gap: .25rem; font-weight: 650; min-width: 0; }
     .pc-inputs select { width: 100%; min-width: 0; min-height: 2.75rem; padding: .35rem; font: inherit; font-size: 1rem; color: inherit; background: #151825; border: 1px solid #646b83; border-radius: .25rem; }
     .pc-result { display: block; border-inline-start: .2rem solid #aaf2de; padding-inline-start: .65rem; overflow-wrap: anywhere; }
+    .reference-guide { margin-top: 1rem; }
+    .reference-guide table { min-width: 44rem; table-layout: auto; }
+    .reference-guide th { width: auto; }
     .spec-faq dt { font-weight: 700; margin-top: .75rem; }
     .spec-faq dd { margin: .2rem 0 0; }
     @media (max-width: 36rem) { .pc-inputs { grid-template-columns: 1fr; } }
@@ -28,7 +31,7 @@
   <main class="shell" id="main">
     <section class="intro" aria-labelledby="title">
       <h1 id="title">GTA 6 PC Requirements</h1>
-      <p class="answer"><strong>Rockstar has not published minimum or recommended GTA 6 PC requirements.</strong> Choose your hardware below to fill in the comparison.</p>
+      <p class="answer"><strong>Rockstar has not published minimum or recommended GTA 6 PC requirements.</strong> The checker below compares your hardware with the published PC requirements for Red Dead Redemption 2 and GTA V Enhanced.</p>
     </section>
     <section class="evidence" aria-label="Official PC specifications compared with your PC">
       <table class="spec-table">
@@ -41,19 +44,17 @@
       </table>
     </section>
     <section class="pc-checker" aria-labelledby="checker-title">
-      <h2 id="checker-title">Can my PC run GTA 6?</h2>
+      <h2 id="checker-title">Compare your PC with Rockstar’s earlier games</h2>
       <div class="pc-inputs">
         <label for="gpu">Graphics card
           <select id="gpu">
             <option value="">Choose your GPU</option>
-            <optgroup label="NVIDIA desktop">
-              <option>GeForce GTX 1660 Super</option><option>GeForce RTX 2060</option><option>GeForce RTX 3060</option>
-              <option>GeForce RTX 3070</option><option>GeForce RTX 4060</option><option>GeForce RTX 4070</option>
-              <option>GeForce RTX 4080</option><option>GeForce RTX 5060</option><option>GeForce RTX 5070</option>
+            <optgroup label="RDR2 minimum and recommended" data-reference="rdr2">
+              <option>GeForce GTX 770 (2 GB)</option><option>Radeon R9 280 (3 GB)</option>
+              <option>GeForce GTX 1060 (6 GB)</option><option>Radeon RX 480 (4 GB)</option>
             </optgroup>
-            <optgroup label="AMD desktop">
-              <option>Radeon RX 6600</option><option>Radeon RX 6700 XT</option><option>Radeon RX 7600</option>
-              <option>Radeon RX 7800 XT</option><option>Radeon RX 9070 XT</option>
+            <optgroup label="GTA V Enhanced recommended" data-reference="gtav">
+              <option>GeForce RTX 3060 (8 GB)</option><option>Radeon RX 6600 XT (8 GB)</option>
             </optgroup>
             <option>Unknown / model not listed</option>
           </select>
@@ -61,15 +62,12 @@
         <label for="cpu">Processor
           <select id="cpu">
             <option value="">Choose your CPU</option>
-            <optgroup label="Intel desktop">
-              <option>Core i5-10400</option><option>Core i5-12400F</option><option>Core i5-13400F</option>
-              <option>Core i5-13600K</option><option>Core i7-12700K</option><option>Core i7-14700K</option>
-              <option>Core Ultra 5 245K</option>
+            <optgroup label="RDR2 minimum and recommended" data-reference="rdr2">
+              <option>Core i5-2500K</option><option>AMD FX-6300</option>
+              <option>Core i7-4770K</option><option>Ryzen 5 1500X</option>
             </optgroup>
-            <optgroup label="AMD desktop">
-              <option>Ryzen 5 3600</option><option>Ryzen 5 5600</option><option>Ryzen 5 7600</option>
-              <option>Ryzen 5 9600X</option><option>Ryzen 7 5700X3D</option><option>Ryzen 7 7800X3D</option>
-              <option>Ryzen 7 9800X3D</option>
+            <optgroup label="GTA V Enhanced recommended" data-reference="gtav">
+              <option>Core i5-9600K</option><option>Ryzen 5 3600</option>
             </optgroup>
             <option>Unknown / model not listed</option>
           </select>
@@ -77,13 +75,29 @@
         <label for="ram">Memory
           <select id="ram">
             <option value="">Choose your RAM</option>
-            <option>4 GB</option><option>8 GB</option><option>12 GB</option><option>16 GB</option>
-            <option>24 GB</option><option>32 GB</option><option>48 GB</option><option>64 GB</option>
-            <option>96 GB</option><option>128 GB</option><option>Unknown / capacity not listed</option>
+            <option value="4">4 GB</option><option value="8">8 GB</option><option value="12">12 GB</option>
+            <option value="16" data-dual-channel>16 GB or more, dual-channel</option>
+            <option value="16-plus">16 GB or more, single-channel or unsure</option>
+            <option value="unknown">Unknown / capacity not listed</option>
           </select>
         </label>
       </div>
-      <output class="pc-result" for="gpu cpu ram" aria-live="polite" aria-atomic="true"><strong>Official PC requirements pending.</strong> A compatibility tier is unavailable until Rockstar publishes PC specifications. <span id="selected-hardware"></span></output>
+      <output class="pc-result" for="gpu cpu ram" aria-live="polite" aria-atomic="true"><strong id="reference-tier">Historical reference only (not official GTA 6 specs)</strong> <span id="reference-detail">Choose your graphics card, processor, and memory to check a reference tier.</span></output>
+      <div class="reference-guide">
+        <h3 id="reference-specs">Official PC specs behind the reference tiers</h3>
+        <p>Both games provide documented PC hardware examples from Rockstar. The checker tests the GTA V Enhanced recommendation first, then matches the RDR2 minimum or recommended GPU and CPU lists against its minimum RAM. It checks only the three selected components. Windows and storage requirements are shown below for context. Hardware outside those lists stays unverified.</p>
+        <div class="wide-table" role="region" aria-labelledby="reference-specs" tabindex="0">
+          <table>
+            <thead><tr><th scope="col">Official profile</th><th scope="col">GPU and VRAM</th><th scope="col">CPU</th><th scope="col">RAM</th><th scope="col">Windows and storage</th><th scope="col">Sources</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">RDR2 minimum</th><td>GTX 770 (2 GB) or R9 280 (3 GB)</td><td>Core i5-2500K or FX-6300</td><td>8 GB</td><td>Windows 10 64-bit, 150 GB HDD</td><td><a href="https://support.rockstargames.com/articles/1LqwiYbHeiSyo3dtcVyS1N/red-dead-redemption-2-pc-system-requirements">Rockstar</a> · <a href="https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/?cc=nl&amp;l=english#sysreq">Steam</a></td></tr>
+              <tr><th scope="row">RDR2 recommended</th><td>GTX 1060 (6 GB) or RX 480 (4 GB)</td><td>Core i7-4770K or Ryzen 5 1500X</td><td>12 GB</td><td>Windows 10 64-bit, 150 GB HDD</td><td><a href="https://support.rockstargames.com/articles/1LqwiYbHeiSyo3dtcVyS1N/red-dead-redemption-2-pc-system-requirements">Rockstar</a> · <a href="https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/?cc=nl&amp;l=english#sysreq">Steam</a></td></tr>
+              <tr><th scope="row">GTA V Enhanced minimum</th><td>GTX 1630 (4 GB) or RX 6400 (4 GB)</td><td>Core i7-4770 or FX-9590</td><td>8 GB</td><td>Windows 10, 105 GB SSD</td><td><a href="https://support.rockstargames.com/articles/lMQXeP2Z1mN3g9oZiBZFR/grand-theft-auto-v-pc-system-requirements">Rockstar</a> · <a href="https://store.steampowered.com/app/3240220/Grand_Theft_Auto_VEnhanced/#sysreq">Steam</a></td></tr>
+              <tr><th scope="row">GTA V Enhanced recommended</th><td>RTX 3060 (8 GB) or RX 6600 XT (8 GB)</td><td>Core i5-9600K or Ryzen 5 3600</td><td>16 GB dual-channel</td><td>Windows 11, 105 GB DirectStorage-compatible SSD</td><td><a href="https://support.rockstargames.com/articles/lMQXeP2Z1mN3g9oZiBZFR/grand-theft-auto-v-pc-system-requirements">Rockstar</a> · <a href="https://store.steampowered.com/app/3240220/Grand_Theft_Auto_VEnhanced/#sysreq">Steam</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
     <section class="details" aria-label="Official sources and common questions">
       <p class="checked">Source check <time datetime="2026-11-27">November 27, 2026</time> · <a href="https://www.rockstargames.com/VI">Rockstar’s platform list</a> · <a href="https://store.steampowered.com/search/?term=Grand+Theft+Auto+VI">Steam catalog search</a></p>
@@ -143,7 +157,10 @@
         <h2 id="updates">How this page will be updated</h2>
         <p>When Rockstar publishes PC requirements, we’ll update the answer at the top and list each officially stated minimum and recommended specification alongside its source. The log below will record the date and exactly what changed. If Rockstar publishes only part of the spec, the remaining fields will stay unconfirmed.</p>
         <h3>Page update log</h3>
-        <ul class="log"><li><time datetime="2026-11-26">November 26, 2026</time> — Published the initial official status and checked the console and Windows release dates for the three games above.</li></ul>
+        <ul class="log">
+          <li><time datetime="2026-11-26">November 26, 2026</time> — Published the initial official status and checked the console and Windows release dates for the three games above.</li>
+          <li><time datetime="2026-11-27">November 27, 2026</time> — Added comparison tiers based on the published RDR2 and GTA V Enhanced PC specifications.</li>
+        </ul>
       </section>
     </div>
   </main>
