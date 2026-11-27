@@ -7,7 +7,7 @@
   <meta name="description" content="Check the official GTA 6 PC requirements and compare your graphics card, processor, and memory with Rockstar’s minimum and recommended specifications when published.">
   <link rel="canonical" href="https://gta6pcwatch.com/gta-6-pc-requirements">
   <link rel="stylesheet" href="/site.css">
-  <script src="/requirements-checker.js?v=2" defer></script>
+  <script type="module" src="/requirements-checker.js?v=3"></script>
   <style>
     .spec-table th:first-child { width: 20%; }
     .spec-table th:nth-child(2), .spec-table th:nth-child(3) { width: 25%; }
@@ -19,6 +19,9 @@
     .reference-guide { margin-top: 1rem; }
     .reference-guide table { min-width: 44rem; table-layout: auto; }
     .reference-guide th { width: auto; }
+    .hardware-basis { margin-top: .45rem; }
+    .hardware-basis:empty { display: none; }
+    .reference-guide details { margin-top: .65rem; }
     .spec-faq dt { font-weight: 700; margin-top: .75rem; }
     .spec-faq dd { margin: .2rem 0 0; }
     @media (max-width: 36rem) { .pc-inputs { grid-template-columns: 1fr; } }
@@ -83,9 +86,14 @@
         </label>
       </div>
       <output class="pc-result" for="gpu cpu ram" aria-live="polite" aria-atomic="true"><strong id="reference-tier">Historical reference only (not official GTA 6 specs)</strong> <span id="reference-detail">Choose your graphics card, processor, and memory to check a reference tier.</span></output>
+      <ul id="hardware-basis" class="log checked hardware-basis" aria-label="Sources for your selected hardware"></ul>
       <div class="reference-guide">
         <h3 id="reference-specs">Official PC specs behind the reference tiers</h3>
-        <p>Both games provide documented PC hardware examples from Rockstar. The checker tests the GTA V Enhanced recommendation first, then matches the RDR2 minimum or recommended GPU and CPU lists against its minimum RAM. It checks only the three selected components. Windows and storage requirements are shown below for context. Hardware outside those lists stays unverified.</p>
+        <p>Rockstar’s published GPU and CPU models are exact matches. Other desktop models are marked inferred and compared within the same vendor by generation, product class, and available VRAM for GPUs. The checker tests the GTA V Enhanced recommendation first. For the lower tier it accepts parts that meet either hardware reference and checks the RDR2 minimum RAM. Windows and storage are shown for context. Unlisted models stay unverified.</p>
+        <details>
+          <summary>See the basis for each graphics card and processor</summary>
+          <ul id="hardware-catalog" class="log checked"></ul>
+        </details>
         <div class="wide-table" role="region" aria-labelledby="reference-specs" tabindex="0">
           <table>
             <thead><tr><th scope="col">Official profile</th><th scope="col">GPU and VRAM</th><th scope="col">CPU</th><th scope="col">RAM</th><th scope="col">Windows and storage</th><th scope="col">Sources</th></tr></thead>
@@ -160,6 +168,7 @@
         <ul class="log">
           <li><time datetime="2026-11-26">November 26, 2026</time> — Published the initial official status and checked the console and Windows release dates for the three games above.</li>
           <li><time datetime="2026-11-27">November 27, 2026</time> — Added comparison tiers based on the published RDR2 and GTA V Enhanced PC specifications.</li>
+          <li><time datetime="2026-11-27">November 27, 2026</time> — Added documented desktop hardware mappings and separated GPU variants with different VRAM capacities.</li>
         </ul>
       </section>
     </div>
